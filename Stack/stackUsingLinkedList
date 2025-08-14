@@ -1,0 +1,98 @@
+#include<iostream>
+using namespace std;
+
+class Node
+{
+    public:
+        int data;
+        Node* next;
+
+        Node(int data)
+        {
+            this->data = data;
+            next = NULL;
+        }
+};
+
+class stack
+{
+    public:
+        Node* head;
+        Node* tail;
+
+        stack()
+        {
+            this-> head = NULL;
+            this -> tail = NULL;
+        }
+
+        void push(int element)
+        {
+            Node* N = new Node(element);
+            if(head == NULL)
+            {
+                head= N;
+                tail = N;
+            }
+            else
+            {
+                tail -> next = N;
+                tail = N;
+            }
+        }
+
+        void pop()
+        {
+            Node* temp = head;
+            if(head == NULL)
+            {
+                cout<<"Stack underflow"<<endl;
+            }
+            else if (head == tail)
+            {
+                delete head;
+                head = NULL;
+                tail = NULL;
+                return;
+            }
+            else
+            {
+                while(temp -> next != tail)
+                {
+                    temp = temp-> next;
+                }
+                delete tail;
+                tail = temp;
+                tail -> next = NULL;
+            }
+        }
+
+        int peek()
+        {
+            if(head == NULL)
+            {
+                cout<<"Stack is empty"<<endl;
+                return -1;
+            }
+            return tail -> data;
+        }
+
+        bool isempty()
+        {
+            if(head == NULL)
+            {
+                return true;
+            }
+            return false;
+        }
+};
+
+int main()
+{
+    stack st;
+    st.push(5);
+    st.push(6);
+    st.pop();
+    cout<<st.peek()<<endl;
+    cout<<st.isempty();
+}
